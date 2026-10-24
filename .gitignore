@@ -1,0 +1,16 @@
+backend/target/
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+*.class
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+.vscode
+
+# Local cookie jars hold session data and should stay on this machine.
+*.cookies.txt
+*-cookies.txt

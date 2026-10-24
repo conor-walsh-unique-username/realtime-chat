@@ -1,0 +1,3 @@
+### Checkpoint 1: run the backend before sending this request.
+GET http://localhost:8080/api/health
+Accept: application/json

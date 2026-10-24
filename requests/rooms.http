@@ -1,0 +1,35 @@
+@baseUrl = http://localhost:8080
+@roomId = 1
+
+### Create a room. Expect 201; copy its actual id into roomId above.
+POST {{baseUrl}}/api/rooms
+Content-Type: application/json
+
+{
+  "name": "General"
+}
+
+### List rooms. Expect 200 and a page containing items.
+GET {{baseUrl}}/api/rooms?page=0&size=20
+
+### Read one room. Expect 200 if this id exists.
+GET {{baseUrl}}/api/rooms/{{roomId}}
+
+### Duplicate name after creating General. Expect 409.
+POST {{baseUrl}}/api/rooms
+Content-Type: application/json
+
+{
+  "name": " general "
+}
+
+### Invalid name. Expect 400.
+POST {{baseUrl}}/api/rooms
+Content-Type: application/json
+
+{
+  "name": "   "
+}
+
+### Invalid page size. Expect 400.
+GET {{baseUrl}}/api/rooms?size=51

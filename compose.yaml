@@ -1,0 +1,25 @@
+name: realtime-chat
+
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: chatdb
+      POSTGRES_USER: chatapp
+      POSTGRES_PASSWORD: chat_dev_password
+    ports:
+      # The backend uses 5433 on the Mac; PostgreSQL still listens on 5432 in the container.
+      - "127.0.0.1:5433:5432"
+    volumes:
+      # Keep the database files when the container is stopped or replaced.
+      - chat_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      # Double dollars leave these variables for the container's shell to expand.
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+
+volumes:
+  chat_pgdata:
